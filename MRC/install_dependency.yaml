@@ -1,0 +1,8 @@
+- hosts: COMP90024
+  remote_user: ubuntu
+  # vars_files:
+    # - host_vars/mrc.yaml
+  roles:
+    - role: openstack-addproxy
+    - role: openstack-ping
+    - role: openstack-dependency

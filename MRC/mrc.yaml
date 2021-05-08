@@ -1,7 +1,7 @@
 - hosts: localhost
   # remote_user: root
   vars:
-    ansible_python_interpreter: /usr/bin/python3
+    ansible_python_interpreter: /usr/local/bin/python3
   vars_files:
     - host_vars/mrc.yaml
   gather_facts: true
@@ -13,12 +13,13 @@
     - role: openstack-security-group
     - role: openstack-instance
 #     - role: openstack-volume-snapshot
-    - role: openstack-ping
 
 - hosts: COMP90024
-  # remote_user: ubuntu
+  remote_user: ubuntu
   # vars_files:
     # - host_vars/mrc.yaml
   roles:
-    # - role: openstack-environment
+    - role: openstack-addproxy
     - role: openstack-ping
+    - role: openstack-dependency
+    - role: openstack-docker

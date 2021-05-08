@@ -5,6 +5,7 @@
     name: '{{ item.name }}'
     image: '{{ instance_image }}'
     key_name: '{{ instance_key_name }}'
+    # key: '/Users/yahaod/Desktop/MRC/ansible.pem'
     flavor: '{{ instance_flavor }}'
     network: '{{ network }}'
     availability_zone: '{{ availability_zone }}'
@@ -23,12 +24,11 @@
   when: item.openstack is defined
 
 - name: Wait for connection
-  wait_for_connection:
-    # host: "{{ item.openstack.public_v4 }}"
-    # port: 22
-    delay: 60
-    timeout: 300
-    # search_regex: OpenSSH
+  wait_for:
+    host: "{{ item.openstack.public_v4 }}"
+    port: 22
+    timeout: 120
+    search_regex: OpenSSH
   loop: '{{ os_instance.results }}'
   when: item.openstack is defined
 

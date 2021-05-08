@@ -1,9 +1,0 @@
----
-- hosts: COMP90024
-  remote_user: root
-
-  tasks:
-
-    - apt: name=cobbler state=installed
-      environment:
-        http_proxy: http://wwwproxy.unimelb.edu.au:8000/
