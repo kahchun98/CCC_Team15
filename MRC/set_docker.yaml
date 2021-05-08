@@ -1,3 +1,5 @@
+---
+  
 - hosts: COMP90024
   remote_user: ubuntu
   # vars_files:
@@ -6,3 +8,4 @@
     - role: openstack-addproxy
     - role: openstack-ping
     - role: openstack-dependency
+    - role: openstack-docker

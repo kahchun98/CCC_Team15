@@ -1,6 +1,7 @@
 # Common vars
 availability_zone: melbourne-qh2-uom
 network: qh2-uom-internal
+project_directory: ~/Documents/GitHub/CCC_Team15/MRC
 # Volume
 volumes:
   - vol_name: manager-node-vol
