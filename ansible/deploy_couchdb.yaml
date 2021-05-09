@@ -1,0 +1,13 @@
+---
+  
+- hosts: COMP90024
+  remote_user: ubuntu
+  vars_files:
+    - host_vars/mrc.yaml
+    - host_vars/deploy.yaml
+  gather_facts: true
+
+  roles:
+    - setup-couchdb
+
+  
