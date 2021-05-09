@@ -43,3 +43,39 @@
   pip:
     name: ['docker-compose']
     state: latest
+
+- name: Create directory
+  tags: 'docker'
+  become: yes
+  file:
+    path: "/etc/systemd/system/docker.service.d"
+    recurse: yes
+    state: directory
+
+- name: create docker proxy file
+  tags: 'docker'
+  become: yes
+  copy:
+    content: "[Service]"
+    dest: "/etc/systemd/system/docker.service.d/http-proxy.conf"
+
+- name: Add proxy to docker service
+  become: yes
+  blockinfile:
+    path: "/etc/systemd/system/docker.service.d/http-proxy.conf"
+    block: |
+      Environment="HTTP_PROXY=http://wwwproxy.unimelb.edu.au:8000/"
+      Environment="HTTPS_PROXY=http://wwwproxy.unimelb.edu.au:8000/"
+      Environment="NO_PROXY=localhost,127.0.0.1,localaddress,172.16.0.0/12,.melbourne.rc.nectar.org.au,.storage.unimelb.edu.au,.cloud.unimelb.edu.au"
+ 
+- name: Reload daemond
+  become: yes
+  command: systemctl daemon-reload
+
+- name: Restart docker
+  become: yes
+  command: systemctl restart docker
+
+- name: Connect to the Docker daemon socket
+  become: yes
+  command: chmod 666 /var/run/docker.sock
