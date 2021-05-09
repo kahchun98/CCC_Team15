@@ -6,10 +6,16 @@ project_directory: ~/Documents/GitHub/CCC_Team15/ansible
 volumes:
   - vol_name: manager-node-vol
     vol_size: 60
+    device: /dev/vdb
+    mountpoint: /data
   - vol_name: slave-node-1-vol
     vol_size: 60
+    device: /dev/vdb
+    mountpoint: /data
   - vol_name: slave-node-2-vol
     vol_size: 60
+    device: /dev/vdb
+    mountpoint: /data
   # - vol_name: slave-node-3-vol
   #   vol_size: 60
 
