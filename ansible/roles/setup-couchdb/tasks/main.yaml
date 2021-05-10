@@ -2,14 +2,15 @@
 - name: Create a data container
   become: yes
   docker_container:
-    name: "{{couchdb_name}}"
-    image: "{{couchdb_image}}"
+    name: "{{ couchdb_name }}"
+    image: "{{ couchdb_image }}:{{ couchdb_VERSION }}"
     ports:
       - "4369:4369"
       - "9100:9100"
-      - "{{ CouchDB_port }}:{{ CouchDB_port }}"
+      - "{{ couchdb_port }}:{{ couchdb_port }}"
     env:
         COUCHDB_USER: couchdb_user
         COUCHDB_PASSWORD: couchdb_password
         # NODENAME: 
-        # COUCHDB_SECRET: 
+        COUCHDB_SECRET: "{{ couchdb_cookie }}"
+        

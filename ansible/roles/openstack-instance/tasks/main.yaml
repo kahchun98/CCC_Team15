@@ -52,7 +52,6 @@
   copy:
     content: "[COMP90024]\n"
     dest: "{{project_directory}}/hosts.ini"
-  loop: '{{ ip_addresses }}'
 
 - name: Add COMP90024 to inventory file
   lineinfile:
@@ -65,9 +64,27 @@
     line: "\n[COMP90024:vars]\nansible_python_interpreter=/usr/bin/python3\nansible_user=ubuntu\nansible_ssh_private_key_file=~/.ssh/ansible.pem\nansible_ssh_common_args='-o StrictHostKeyChecking=no'\n\n\n"
     dest: "{{project_directory}}/hosts.ini"
 
-# save ip addresses of instances
-- name: write ip addresses to inventory file
+- name: create manager node group
   lineinfile:
-    line: "[{{ item.name }}]\n{{ item.ip }}\n"
+    line: "[managernode]"
+    dest: "{{project_directory}}/hosts.ini"
+
+# save ip addresses of instances
+- name: write ip addresses to manager
+  lineinfile:
+    line: "{{ item.ip }}\n"
     dest: "{{project_directory}}/hosts.ini"
   loop: '{{ ip_addresses }}'
+  when: item.name == "manager-node"
+
+- name: create worker node group
+  lineinfile:
+    line: "[workernodes]"
+    dest: "{{project_directory}}/hosts.ini"
+
+- name: write ip addresses to worker
+  lineinfile:
+    line: "{{ item.ip }}\n"
+    dest: "{{project_directory}}/hosts.ini"
+  loop: '{{ ip_addresses }}'
+  when: (item.name == "slave-node-1") or (item.name == "slave-node-2")

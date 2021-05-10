@@ -12,3 +12,19 @@
     - role: openstack-security-group
     - role: openstack-instance
     # - role: openstack-volume-snapshot
+
+- hosts: managernode
+  vars_files:
+    - host_vars/mrc.yaml
+  gather_facts: true
+
+  roles:
+    - role: openstack-ping
+
+- hosts: workernodes
+  vars_files:
+    - host_vars/mrc.yaml
+  gather_facts: true
+
+  roles:
+    - role: openstack-ping

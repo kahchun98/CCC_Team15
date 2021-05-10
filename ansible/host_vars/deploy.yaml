@@ -7,7 +7,9 @@ rmote_directory: /home/ubuntu
 couchdb_working_directory: /home/ubuntu/couchdb
 
 couchdb_name: couchdb_data
-couchdb_image: couchdb:latest
+couchdb_image: ibmcom/couchdb3
 couchdb_user: admin
 couchdb_password: password
-CouchDB_port: 5984
+couchdb_port: 5984
+couchdb_cookie: 'a192aeb9904e6590849337933b000c99'
+couchdb_VERSION: '3.1.1'
