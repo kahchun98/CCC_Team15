@@ -10,7 +10,7 @@ const path = require("path");
  *  App Variables
 */
 const app = express();
-const port = "8000";
+const port = "8080";
 
 //Imports Static fie (CSS, app logic JS, Images etc)
 app.use(express.static(__dirname + '/public'));
