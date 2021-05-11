@@ -1,24 +1,25 @@
-/*
- *  Variable Declarations
-*/
+window.onload = function () {
 
-var width = 960,
-    height = 1160;
-
-var svg = d3.select(".content-wrapper").append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-var g = svg.append("g");
-
-var path = d3.geoPath();
-
-/*
- *  D3 Functions
- */
-
-d3.json("map-json/vic.json", function(au) {
-  g.append("path")
-    .datum(topojson.feature(au, au.objects.VIC_LOCALITY_POLYGON_SHP))
-    .attr("d", path);
+var chart = new CanvasJS.Chart("linechar-housing", {
+	animationEnabled: true,
+	theme: "light2",
+	title:{
+		text: "View of Covid vs wealth (median housing price)"
+	},
+	data: [{
+		type: "line",
+				indexLabelFontSize: 16,
+		dataPoints: [
+			{ x: 10, y: 1245 },
+			{ x: 20, y: 450 },
+			{ x: 34, y: 661 },
+			{ x: 40, y: 12 },
+			{ x: 56, y: 136 },
+			{ x: 72, y: 156 },
+			{ x: 78, y: 4510 }
+		]
+	}]
 });
+chart.render();
+
+}
