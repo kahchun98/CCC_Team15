@@ -2,15 +2,15 @@
 - name: Create a data container
   become: yes
   docker_container:
-    name: "{{ couchdb_name }}"
+    name: "{{ couchdb_name }}{{ item.openstack.public_v4 }}"
     image: "{{ couchdb_image }}:{{ couchdb_VERSION }}"
     ports:
       - "4369:4369"
       - "9100:9100"
       - "{{ couchdb_port }}:{{ couchdb_port }}"
     env:
-        COUCHDB_USER: couchdb_user
-        COUCHDB_PASSWORD: couchdb_password
-        # NODENAME: 
+        COUCHDB_USER: "{{ couchdb_user }}"
+        COUCHDB_PASSWORD: "{{ couchdb_password }}"
         COUCHDB_SECRET: "{{ couchdb_cookie }}"
-        
+        ERL_FLAGS: "-setcookie {{ couchdb_cookie }} -name {{ item.openstack.public_v4 }}"
+  when: item.openstack is defined
