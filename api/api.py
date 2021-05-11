@@ -38,14 +38,14 @@ def page_not_found(e):
 
 
 #needs refinement, working on it
-@app.route('/api/v1/resources/suburbs', methods=['GET'])
+@app.route('/statistics', methods=['GET'])
 def api_filter():
-    
+
     #localhost:5984
     couch = couchdb.Server()
     manager = CouchDBManager()
     manager.setup(app)
-   
+
     db = g.couch['suburbs']
     db['rows'] = dict()
 
@@ -53,18 +53,18 @@ def api_filter():
     query_parameters = request.args
     id = query_parameters.get('id')
     name = query_parameters.get('suburbname')
-    
+
     query = "SELECT * FROM suburbs WHERE"
     to_filter = []
 
     if id:
         query += ' id=? AND'
         to_filter.append(id)
-        
+
     if name:
         query += ' suburbname=? AND'
         to_filter.append(name)
-    
+
     if not (id or name):
         return page_not_found(404)
 

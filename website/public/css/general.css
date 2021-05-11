@@ -16,6 +16,10 @@ p{
   border-radius: 5px;
 }
 
+h1{
+  margin-left: 50px;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #C9C9C9;
@@ -25,4 +29,11 @@ body {
 .text-headline{
   font-size: 25px;
   padding: 10px;
+}
+
+.linechart {
+  height: 300px;
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
