@@ -1,13 +1,29 @@
 ---
   
+# - hosts: COMP90024
+#   remote_user: ubuntu
+#   vars_files:
+#     - host_vars/mrc.yaml
+#     - host_vars/deploy.yaml
+#   gather_facts: true
+
+#   roles:
+#     - role: setup-couchdb
+#     - role: setup-couchdb-cluster
+
 - hosts: COMP90024
-  remote_user: ubuntu
   vars_files:
     - host_vars/mrc.yaml
     - host_vars/deploy.yaml
   gather_facts: true
-
   roles:
-    - setup-couchdb
+    - role: setup-couchdb
 
+# - hosts: managernode
+#   vars_files:
+#     - host_vars/mrc.yaml
+#     - host_vars/deploy.yaml
+#   gather_facts: true
+#   roles:
+#     - role: setup-couchdb-cluster
   

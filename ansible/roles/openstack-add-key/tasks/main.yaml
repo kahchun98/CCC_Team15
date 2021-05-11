@@ -1,0 +1,9 @@
+---
+
+- name: Set permission of key
+  become: yes
+  command: chmod 600 ansible.pem
+
+- name: Add key
+  become: yes
+  command: ssh-add ansible.pem
