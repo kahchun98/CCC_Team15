@@ -6,7 +6,7 @@ rmote_directory: /home/ubuntu
 
 couchdb_working_directory: /home/ubuntu/couchdb
 
-couchdb_name: couchdb
+couchdb_name: 'couchdb_'
 couchdb_image: ibmcom/couchdb3
 couchdb_user: admin
 couchdb_password: admin

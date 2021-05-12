@@ -39,7 +39,6 @@
   loop: '{{ os_instance.results }}'
   when: item.openstack is defined
 
-
 # collect ip
 - name: Set ip fact
   set_fact:
@@ -51,40 +50,41 @@
 - name: create inventory file
   copy:
     content: "[COMP90024]\n"
-    dest: "{{project_directory}}/hosts.ini"
+    dest: "{{project_directory}}/inventory/hosts.ini"
 
 - name: Add COMP90024 to inventory file
   lineinfile:
     line: "{{ item.ip }}"
-    dest: "{{project_directory}}/hosts.ini"
+    dest: "{{project_directory}}/inventory/hosts.ini"
   loop: '{{ ip_addresses }}'
 
 - name: Add vars to inventory file
   lineinfile:
     line: "\n[COMP90024:vars]\nansible_python_interpreter=/usr/bin/python3\nansible_user=ubuntu\nansible_ssh_private_key_file=~/.ssh/ansible.pem\nansible_ssh_common_args='-o StrictHostKeyChecking=no'\n\n\n"
-    dest: "{{project_directory}}/hosts.ini"
+    dest: "{{project_directory}}/inventory/hosts.ini"
 
 - name: create manager node group
   lineinfile:
     line: "[managernode]"
-    dest: "{{project_directory}}/hosts.ini"
+    dest: "{{project_directory}}/inventory/hosts.ini"
 
 # save ip addresses of instances
 - name: write ip addresses to manager
   lineinfile:
     line: "{{ item.ip }}\n"
-    dest: "{{project_directory}}/hosts.ini"
+    dest: "{{project_directory}}/inventory/hosts.ini"
   loop: '{{ ip_addresses }}'
   when: item.name == "manager-node"
 
 - name: create worker node group
   lineinfile:
     line: "[workernodes]"
-    dest: "{{project_directory}}/hosts.ini"
+    dest: "{{project_directory}}/inventory/hosts.ini"
 
 - name: write ip addresses to worker
   lineinfile:
     line: "{{ item.ip }}\n"
-    dest: "{{project_directory}}/hosts.ini"
+    dest: "{{project_directory}}/inventory/hosts.ini"
   loop: '{{ ip_addresses }}'
   when: (item.name == "slave-node-1") or (item.name == "slave-node-2")
+

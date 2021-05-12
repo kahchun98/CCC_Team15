@@ -1,4 +1,13 @@
 ---
+- name: Install dependencies
+  tags: 'volumes'
+  become: yes
+  apt:
+    name: ['xfsprogs']
+    state: latest
+    install_recommends: no
+    update_cache: yes
+    
 - name: Make file system
   tags: 'volumes'
   become: yes
