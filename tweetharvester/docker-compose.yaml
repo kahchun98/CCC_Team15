@@ -8,6 +8,6 @@ services:
     #   - "80:5001"
     volumes:
       - .:/usr/backend
-    # environment:
+    environment:
       # port number that you want the flask to listen to
-    #   flask_port: 5001
+      STATELIST: 'Queensland'
