@@ -22,4 +22,5 @@ Werkzeug==1.0.1
 pandas==1.0.3
 tweepy
 textblob
+couchdb
 plotly
