@@ -24,6 +24,10 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname+'/html/webpage.html'));
 });
 
+app.get("/getjson", (req, res) => {
+  res.sendFile(path.join(__dirname+'/public/json/test.json'));
+});
+
 
 /*
  *  Runs the web server
