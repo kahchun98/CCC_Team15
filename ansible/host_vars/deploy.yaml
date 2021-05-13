@@ -1,6 +1,6 @@
 ---
 
-rmote_directory: /home/ubuntu
+remote_working_directory: /home/ubuntu/COMP90024
 
 
 
@@ -14,3 +14,4 @@ couchdb_port: 5984
 couchdb_cookie: 'a192aeb9904e6590849337933b000c99'
 couchdb_VERSION: '3.1.1'
 cluster_setup: '_cluster_setup'
+git_repo: /home/ubuntu/COMP90024/CCC_Team15
