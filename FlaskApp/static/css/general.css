@@ -1,0 +1,39 @@
+header {
+  overflow: hidden;
+  background-color: #1A1A1A;
+  color: #3EB595;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2em;
+  font-weight: bold;
+  padding: 10px;
+}
+
+p{
+  font-size: 18px;
+  margin: 10px;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+h1{
+  margin-left: 50px;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #C9C9C9;
+  margin: 0;
+}
+
+.text-headline{
+  font-size: 25px;
+  padding: 10px;
+}
+
+.linechart {
+  height: 300px;
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
