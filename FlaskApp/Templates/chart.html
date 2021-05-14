@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Team 15 CCC</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/general.css') }}">
+    <script type="text/javascript" src="//cdn.bootcss.com/socket.io/1.5.1/socket.io.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script type=text/javascript>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+       
+        $(document).ready(function(){
+            
+            // make charts' variables list
+            var scores_price = [];
+            var scores_age = [];
+            var scores_cases = [];
+            var chart = new CanvasJS.Chart("linechar-housing", {
+                animationEnabled: true, theme: "light2",
+                title:{ text: "Sentiment Score vs Wealth (median housing price)" },
+                axisX:{title: "Median House Price (per State)", crosshair: {enabled: true}},
+                axisY: {title: "COVID Tweet Semantic Score", crosshair: {enabled: true}},
+                data: [{
+                    type: "line",
+                    indexLabelFontSize: 16,
+                    dataPoints: scores_price
+                }]
+            });
+            var chart2 = new CanvasJS.Chart("linechar-age", {
+                animationEnabled: true, theme: "light2",
+                title:{ text: "Sentiment Score vs Median Age of Population" },
+                axisX:{title: "Median Age of Population (per State)", crosshair: {enabled: true}},
+                axisY: {title: "COVID Tweet Semantic Score", crosshair: {enabled: true}},
+                data: [{
+                    type: "line",
+                    indexLabelFontSize: 16,
+                    dataPoints: scores_age
+                }]
+            });
+            var chart3 = new CanvasJS.Chart("linechar-cases", {
+                animationEnabled: true, theme: "light2",
+                title:{ text: "Sentiment Score vs Total number of cases (as of 10th May 2021)" },
+                axisX:{title: "Total number of cases (per State)", crosshair: {enabled: true}},
+                axisY: {title: "COVID Tweet Semantic Score", crosshair: {enabled: true}},
+                
+                data: [{
+                    type: "line",
+                    indexLabelFontSize: 16,
+                    dataPoints: scores_cases
+                }]
+            });
+
+            function extract_prepare_Data(data){
+                for (var key in data) {
+                    var sent_score = data[key]["score"];
+                    scores_price.push({x : data[key]["price"], y : sent_score});
+                    scores_age.push({x : data[key]["age"], y : sent_score});
+                    scores_cases.push({x : data[key]["cases"], y : sent_score})
+                }
+                 // sort-x function
+                function up(a, b){//升序 increase order
+                    return a.x - b.x;  //decrease : b.x - a.x
+                }
+                // sort charts' variables list using the sort-x function
+                scores_price.sort(up);
+                scores_age.sort(up);
+                scores_cases.sort(up);
+            }
+
+            $('#getdata').bind('click', function() {
+                $.getJSON($SCRIPT_ROOT + '/getMapData', {}, function(data) {
+                        extract_prepare_Data(data);
+                        chart.render();
+                        chart2.render();
+                        chart3.render();
+                });  
+            });
+            
+            chart.render();
+            chart2.render();
+            chart3.render();
+
+
+            function extract_prepare_Data2(data){
+                for (var key in data) {
+                    var sent_score = data[key]["score"];
+                    scores_price.push({x : data[key]["price"], y : sent_score});
+                    scores_age.push({x : data[key]["age"], y : sent_score});
+                    scores_cases.push({x : data[key]["cases"], y : sent_score})
+                }
+                 // sort-x function
+                function up(a, b){//升序 increase order
+                    return a.x - b.x;  //decrease : b.x - a.x
+                }
+                // sort charts' variables list using the sort-x function
+                scores_price.sort(up);
+                scores_age.sort(up);
+                scores_cases.sort(up);
+            }
+            
+            namespace = "/backendMonitor";
+            var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+            socket.on('connect', function(){
+                socket.send("From Web, connceted");  
+            });	
+            socket.on('getMapData', function(data){
+                extract_prepare_Data2(data);
+                chart.render();
+                chart2.render();
+                chart3.render();
+            });
+
+        });
+	</script>
+
+    <script type="text/javascript" src="//canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" rel="preconnect">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <header>
+        <a class="title">Team 15</a>
+    </header>
+    <main>
+        <div class="content-wrapper">
+            <h1 class="text-headline"> Does wealth or age of the population have an affect on their views of the COVID-19 situation (positive or negative)?</h1>
+            <button id="getdata">get data</button>
+            
+            <div class="linechart" id="linechar-housing" style="height: 300px;"></div>
+            <div class="linechart" id="linechar-age" style="height: 300px;"></div>
+            <div class="linechart" id="linechar-cases" style="height: 300px;"></div>
+        </div>
+    </main>
+    <div style="display: none;"></div>
+</body>
+</html>
