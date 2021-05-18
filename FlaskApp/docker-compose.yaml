@@ -1,0 +1,13 @@
+version: '3'
+services:
+  frontend:
+    build: .
+    image: comp90024-frontend:latest
+    ports:
+      # port number on server that others can access: port number in container
+      - "80:5000"
+    volumes:
+      - .:/usr/frontend
+    environment:
+      # port number that you want the flask to listen to
+      STATELIST: 'Queensland'
