@@ -34,28 +34,111 @@ def startSThread(method):
     subThread = threading.Thread(target = method, name = 'sub_thread')
     subThread.setDaemon(True)
     subThread.start()
-    print(subThread.getName(), subThread.isAlive())
+    print(subThread.getName(), subThread.isAlive()) #change isAlive to is_alive if using python 3.9
 
-data = {
-    'A1':{
-        'score':0.1,
-        'price':1000,
-        'cases':100,
-        'age': 23,
+
+# ----------------------------------- GET DATA FROM COUCHDB --------------------------------------
+
+from couchdb.client import Server, ViewResults
+import os
+
+#----------------------------------- ENVIRONMENT DEFINITION --------------------------------------
+
+COUCHDB_IP = os.environ['COUCHDB_IP']
+password = os.environ['password'] #password format not sure, string or file
+
+#--------------------------------------- END DEFINITION ------------------------------------------
+
+
+#remote server format not sure, test with
+#server = Server('http://ubuntu:' + password + '@' + COUCHDB_IP + ':5984/')
+#or test with
+server = Server('http://' + COUCHDB_IP + ':5984/')
+
+#test connection purpose, print all the databases in the server
+# for each in server:
+#     print(each)
+
+#database names not sure
+db1 = server['tweets']  #which stores all the tweets
+db2 = server['states']  #which stores all the states information
+
+#map/reduce process
+#codes below may not be used, depending on whether we import design documents into databases beforehand
+#if imported beforehand, comment out the codes 
+
+#design document for database 'tweets'
+#based on the assumption that each tweet is a document
+#!! need to confirm the "doc." names => doc.state, doc.semantics
+doc1 = {'_id': '_design/stateInfo',
+       'views': {
+      'perState': {
+        'reduce': 'function (keys, values) {\n  \n  return sum(values)/values.length;\n  \n}',
+        'map': 'function (doc) {\n  emit(doc.state, doc.semantics);\n}'
+      }
     },
-    'A2':{
-        'score':-0.3,
-        'price':2000,
-        'cases':90,
-        'age':39,
+    'language': 'javascript'}
+db1.save(doc1)
+
+#design document for database 'states'
+#based on the assumption that each state is a document
+#!! need to confirm the "doc." names => doc.state,doc.median_housing_price,doc.median_age,doc.total_cases
+doc2 = {
+    "_id": "_design/stateInfo",
+    "views": {
+      "perState": {
+        "map": "function (doc) {\n  emit(doc.state, {\"median housing price\": doc.median_housing_price, \"median age\": doc.median_age, \"total cases\": doc.total_cases});\n}"
+      }
     },
-    'A3':{
-        'score':-0.2,
-        'price':3000,
-        'cases':108,
-        'age':33,
-    }
-}
+    "language": "javascript"
+  }
+db2.save(doc2)
+
+#mapreduce result for the tweets
+result1 = db1.view('stateInfo/perState', group=True).rows
+#mapreduce result for the states
+result2 = db2.view('stateInfo/perState').rows
+
+#collect the results
+data = {}
+
+for row in result1:
+    data.update({row.key:{'score': row.value}})
+    
+for row in result2:
+    
+    if row.key.upper() in data:
+        data[row.key.upper()]['price'] = row.value['median housing price']
+        data[row.key.upper()]['age'] = row.value['median age']
+        data[row.key.upper()]['cases'] = row.value['total cases']
+    else:
+        data.update({row.key.upper():{'price':row.value['median housing price']}})
+        data[row.key.upper()]['age'] = row.value['median age']
+        data[row.key.upper()]['cases'] = row.value['total cases']
+
+
+
+#test data
+# data = {
+#     'A1':{
+#         'score':0.1,
+#         'price':1000,
+#         'cases':100,
+#         'age': 23,
+#     },
+#     'A2':{
+#         'score':-0.3,
+#         'price':2000,
+#         'cases':90,
+#         'age':39,
+#     },
+#     'A3':{
+#         'score':-0.2,
+#         'price':3000,
+#         'cases':108,
+#         'age':33,
+#     }
+# }
 
 
 @app.route('/getMapData')
