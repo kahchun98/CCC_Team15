@@ -51,9 +51,9 @@ password = os.environ['password'] #password format not sure, string or file
 
 
 #remote server format not sure, test with
-#server = Server('http://ubuntu:' + password + '@' + COUCHDB_IP + ':5984/')
+server = Server('http://ubuntu:' + password + '@' + COUCHDB_IP + ':5984/')
 #or test with
-server = Server('http://' + COUCHDB_IP + ':5984/')
+#server = Server('http://' + COUCHDB_IP + ':5984/')
 
 #test connection purpose, print all the databases in the server
 # for each in server:
