@@ -46,12 +46,13 @@ import os
 
 COUCHDB_IP = os.environ['COUCHDB_IP']
 password = os.environ['password'] #password format not sure, string or file
+username = os.environ['username']
 
 #--------------------------------------- END DEFINITION ------------------------------------------
 
 
 #remote server format not sure, test with
-server = Server('http://ubuntu:' + password + '@' + COUCHDB_IP + ':5984/')
+server = Server('http://' + username + ':' + password + '@' + COUCHDB_IP + ':5984/')
 #or test with
 #server = Server('http://' + COUCHDB_IP + ':5984/')
 
