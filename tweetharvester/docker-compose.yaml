@@ -10,4 +10,4 @@ services:
       - .:/usr/backend
     environment:
       # port number that you want the flask to listen to
-      STATELIST: 'Queensland'
+      STATELIST: $STATELIST

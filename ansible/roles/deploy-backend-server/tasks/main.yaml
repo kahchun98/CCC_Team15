@@ -17,3 +17,9 @@
   shell: docker-compose up -d --build
   args:
     chdir: /home/ubuntu/COMP90024/CCC_Team15/tweetharvester
+  environment:
+    STATELIST: '>>>>>>>>>> {{ harvester_states[inventory_hostname] }}'
+
+# - name: debug 
+#   debug: 
+#     msg: " host: >>>>>>>>>>> {{ harvester_states[inventory_hostname] }}"

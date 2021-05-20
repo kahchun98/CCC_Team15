@@ -1,4 +1,4 @@
- - hosts: managernode
+ - hosts: COMP90024
    vars_files:
      - host_vars/deploy.yaml
    gather_facts: true

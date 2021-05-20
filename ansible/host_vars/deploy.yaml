@@ -1,11 +1,7 @@
 ---
 
 remote_working_directory: /home/ubuntu/COMP90024
-
-
-
 couchdb_working_directory: /home/ubuntu/couchdb
-
 couchdb_name: 'couchdb_'
 couchdb_image: ibmcom/couchdb3
 couchdb_user: admin
@@ -15,3 +11,7 @@ couchdb_cookie: 'a192aeb9904e6590849337933b000c99'
 couchdb_VERSION: '3.1.1'
 cluster_setup: '_cluster_setup'
 git_repo: /home/ubuntu/COMP90024/CCC_Team15
+harvester_states:
+   172.26.129.1: h1
+   172.26.130.90: h2
+   172.26.133.9: h3
