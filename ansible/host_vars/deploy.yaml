@@ -12,6 +12,6 @@ couchdb_VERSION: '3.1.1'
 cluster_setup: '_cluster_setup'
 git_repo: /home/ubuntu/COMP90024/CCC_Team15
 harvester_states:
-   172.26.129.1: h1
-   172.26.130.90: h2
-   172.26.133.9: h3
+   172.26.129.1: "Victoria,New South Wales,South Australia"
+   172.26.130.90: "Queensland,Tasmania,Western Australia"
+   172.26.133.9: "Australian Capital Territory,Northern Territory"
