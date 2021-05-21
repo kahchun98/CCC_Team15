@@ -90,8 +90,8 @@ def write_to_couchdb(tweets_iterator, state):
     for tweet in tweets_iterator:
         blob = TextBlob(clean(tweet.full_text))
         polarity = blob.sentiment.polarity
-        record = {'id':tweet.id, 'semantic':polarity, 'state': state}
-        db.save(record)
+        record = {'semantic':polarity, 'state': state}
+        db[tweet.id] = record
 
 
 # ---------------------------------------------END METHODS--------------------------------------------------
