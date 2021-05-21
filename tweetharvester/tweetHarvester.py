@@ -91,7 +91,8 @@ def write_to_couchdb(tweets_iterator, state):
         blob = TextBlob(clean(tweet.full_text))
         polarity = blob.sentiment.polarity
         record = {'semantic':polarity, 'state': state}
-        db[tweet.id] = record
+        if tweet.id not in db:
+            db[tweet.id] = record
 
 
 # ---------------------------------------------END METHODS--------------------------------------------------
