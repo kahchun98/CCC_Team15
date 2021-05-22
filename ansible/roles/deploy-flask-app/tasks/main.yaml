@@ -14,15 +14,16 @@
     chdir: /home/ubuntu/COMP90024/CCC_Team15/FlaskApp
 
 - name: Start server
-  shell: docker-compose up -d --build
+  shell: docker-compose up 
   args:
     chdir: /home/ubuntu/COMP90024/CCC_Team15/FlaskApp
   environment:
     # STATELIST: '{{ harvester_states[inventory_hostname] }}'
-    COUCHDB_IP: 172.26.129.1
+    COUCHDB_IP: '{{ ansible_host }}'
     COUCHDB_PASS: '{{ couchdb_password }}'
     COUCHDB_USERNAME: '{{ couchdb_user }}'
-
+  # loop: '{{ groups['managernode'][0] }}'
+  # when: item.name == "manager-node"
 
 # - name: debug 
 #   debug: 

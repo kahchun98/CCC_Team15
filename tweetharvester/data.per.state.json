@@ -1,0 +1,52 @@
+{
+"docs": [
+    {
+        "_id": "nsw",
+        "median housing price": "643632.1133",
+        "median age": "37.5",
+        "total cases": "5538"
+    },
+    {
+        "_id": "nt",
+        "median housing price": "422083.3333",
+        "median age": "32.9",
+        "total cases": "167"
+    },
+    {
+        "_id": "qld",
+        "median housing price": "291097.2037",
+        "median age": "37.3",
+        "total cases": "1580"
+    },
+    {
+        "_id": "sa",
+        "median housing price": "346576.2059",
+        "median age": "40",
+        "total cases": "740"
+    },
+    {
+        "_id": "tas",
+        "median housing price": "327974.1379",
+        "median age": "42.3",
+        "total cases": "234"
+    },
+    {
+        "_id": "vic",
+        "median housing price": "577464.7152",
+        "median age": "36.7",
+        "total cases": "20535"
+    },
+    {
+        "_id": "wa",
+        "median housing price": "384143.6441",
+        "median age": "36.9",
+        "total cases": "1013"
+    },
+    {
+        "_id": "act",
+        "median housing price": "710000",
+        "median age": "35.1",
+        "total cases": "124"
+    }
+]
+}

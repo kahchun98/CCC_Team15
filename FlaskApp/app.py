@@ -53,6 +53,7 @@ username = os.environ['username']
 
 #remote server format not sure, test with
 server = Server('http://' + username + ':' + password + '@' + COUCHDB_IP + ':5984/')
+print('http://' + username + ':' + password + '@' + COUCHDB_IP + ':5984/')
 #or test with
 #server = Server('http://' + COUCHDB_IP + ':5984/')
 
