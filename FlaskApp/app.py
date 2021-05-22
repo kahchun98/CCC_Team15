@@ -72,29 +72,31 @@ db2 = server['states']  #which stores all the states information
 #design document for database 'tweets'
 #based on the assumption that each tweet is a document
 #!! need to confirm the "doc." names => doc.state, doc.semantics
-doc1 = {'_id': '_design/stateInfo',
-       'views': {
-      'perState': {
-        'reduce': 'function (keys, values) {\n  \n  return sum(values)/values.length;\n  \n}',
-        'map': 'function (doc) {\n  emit(doc.state, doc.semantics);\n}'
-      }
-    },
-    'language': 'javascript'}
-db1.save(doc1)
+if '_design/stateInfo' not in db1:
+    doc1 = {'_id': '_design/stateInfo',
+        'views': {
+        'perState': {
+            'reduce': 'function (keys, values) {\n  \n  return sum(values)/values.length;\n  \n}',
+            'map': 'function (doc) {\n  emit(doc.state, doc.semantics);\n}'
+        }
+        },
+        'language': 'javascript'}
+    db1.save(doc1)
 
 #design document for database 'states'
 #based on the assumption that each state is a document
 #!! need to confirm the "doc." names => doc.state,doc.median_housing_price,doc.median_age,doc.total_cases
-doc2 = {
-    "_id": "_design/stateInfo",
-    "views": {
-      "perState": {
-        "map": "function (doc) {\n  emit(doc.state, {\"median housing price\": doc.median_housing_price, \"median age\": doc.median_age, \"total cases\": doc.total_cases});\n}"
-      }
-    },
-    "language": "javascript"
-  }
-db2.save(doc2)
+if '_design/stateInfo' not in db2:
+    doc2 = {
+        "_id": "_design/stateInfo",
+        "views": {
+        "perState": {
+            "map": "function (doc) {\n  emit(doc.state, {\"median housing price\": doc.median_housing_price, \"median age\": doc.median_age, \"total cases\": doc.total_cases});\n}"
+        }
+        },
+        "language": "javascript"
+    }
+    db2.save(doc2)
 
 #mapreduce result for the tweets
 result1 = db1.view('stateInfo/perState', group=True).rows
