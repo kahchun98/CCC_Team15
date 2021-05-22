@@ -1,0 +1,29 @@
+---
+# - name: generate bacnkend configuration of couchdb
+#   become:
+#     yes
+#   template:
+#     src: couchDBSetting.py.j2
+#     dest: '{{remote_working_directory}}/comp90024-project2/backend/couchDBSetting.py'
+
+- name: Shut down previous server
+  become:
+    yes
+  shell: docker-compose down --rmi local
+  args:
+    chdir: /home/ubuntu/COMP90024/CCC_Team15/FlaskApp
+
+- name: Start server
+  shell: docker-compose up -d --build
+  args:
+    chdir: /home/ubuntu/COMP90024/CCC_Team15/FlaskApp
+  environment:
+    # STATELIST: '{{ harvester_states[inventory_hostname] }}'
+    COUCHDB_IP: 172.26.129.1
+    COUCHDB_PASS: '{{ couchdb_password }}'
+    COUCHDB_USERNAME: '{{ couchdb_user }}'
+
+
+# - name: debug 
+#   debug: 
+#     msg: " host: >>>>>>>>>>> {{ harvester_states[inventory_hostname] }}"
