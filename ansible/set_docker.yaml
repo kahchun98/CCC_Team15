@@ -7,7 +7,6 @@
     - host_vars/deploy.yaml
   roles:
     - role: openstack-addproxy
-    # - role: openstack-ping
     - role: install-dependency
     - role: install-docker
     - role: git-clone-repo
