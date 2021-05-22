@@ -65,6 +65,71 @@ print('http://' + username + ':' + password + '@' + COUCHDB_IP + ':5984/')
 db1 = server['tweets']  #which stores all the tweets
 db2 = server['states']  #which stores all the states information
 
+#documents for aurin data
+if 'nsw' not in db2:
+    doc = {"_id": "nsw",
+        "state": "nsw",
+        "median_housing_price": 643632.1133,
+        "median_age": 37.5,
+        "total_cases": 5538}
+    db2.save(doc)
+
+if 'nt' not in db2:
+    doc = {"_id": "nt",
+        "state": "nt",
+        "median_housing_price": 422083.3333,
+        "median_age": 32.9,
+        "total_cases": 167}
+    db2.save(doc)
+
+if 'qld' not in db2:
+    doc = {"_id": "qld",
+        "state": "qld",
+        "median_housing_price": 291097.2037,
+        "median_age": 37.3,
+        "total_cases": 1580}
+    db2.save(doc)
+
+if 'sa' not in db2:
+    doc = {"_id": "sa",
+        "state": "sa",
+        "median_housing_price": 346576.2059,
+        "median_age": 40,
+        "total_cases": 740}
+    db2.save(doc)
+
+if 'tas' not in db2:
+    doc = {"_id": "tas",
+        "state": "tas",
+        "median_housing_price": 327974.1379,
+        "median_age": 42.3,
+        "total_cases": 234}
+    db2.save(doc)
+
+if 'vic' not in db2:
+    doc = {"_id": "vic",
+        "state": "vic",
+        "median_housing_price": 577464.7152,
+        "median_age": 36.7,
+        "total_cases": 20535}
+    db2.save(doc)
+
+if 'wa' not in db2:
+    doc = {"_id": "wa",
+        "state": "wa",
+        "median_housing_price": 384143.6441,
+        "median_age": 36.9,
+        "total_cases": 1013}
+    db2.save(doc)
+
+if 'act' not in db2:
+    doc = {"_id": "act",
+        "state": "act",
+        "median_housing_price": 710000,
+        "median_age": 35.1,
+        "total_cases": 124}
+    db2.save(doc)
+
 #map/reduce process
 #codes below may not be used, depending on whether we import design documents into databases beforehand
 #if imported beforehand, comment out the codes 
