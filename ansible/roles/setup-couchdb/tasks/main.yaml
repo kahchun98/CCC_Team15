@@ -12,6 +12,6 @@
         COUCHDB_USER: "{{ couchdb_user }}"
         COUCHDB_PASSWORD: "{{ couchdb_password }}"
         COUCHDB_SECRET: "{{ couchdb_cookie }}"
-        NODENAME: "{{ ansible_host }}"
+        # NODENAME: "{{ ansible_host }}"
         # ERL_FLAGS: "-setcookie {{ couchdb_cookie }} -name {{ item.openstack.public_v4 }}"
-  when: item.openstack is defined
+  # when: item.openstack is defined
