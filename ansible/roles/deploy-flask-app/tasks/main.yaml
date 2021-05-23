@@ -22,6 +22,7 @@
     COUCHDB_IP: '{{ ansible_host }}'
     COUCHDB_PASS: '{{ couchdb_password }}'
     COUCHDB_USERNAME: '{{ couchdb_user }}'
+    DATABASE_NAME: '{{ couchdb_name }}'
   # loop: '{{ groups['managernode'][0] }}'
   # when: item.name == "manager-node"
 
