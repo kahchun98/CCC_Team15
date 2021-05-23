@@ -46,4 +46,4 @@ RUN pip install -r requirement.txt
 # EXPOSE $flask_port
 #RUN ./run_flask_debug_mode.sh
 ENTRYPOINT ["sh", "-c"]
-CMD ["python tweetHarvester.py"]
+CMD ["python3 tweetHarvester.py"]
