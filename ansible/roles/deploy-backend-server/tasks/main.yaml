@@ -19,6 +19,7 @@
     chdir: /home/ubuntu/COMP90024/CCC_Team15/tweetharvester
   environment:
     STATELIST: '{{ harvester_states[inventory_hostname] }}'
+    COUCHDB_PORT: '{{ couchdb_port }}'
 
 # - name: debug 
 #   debug: 

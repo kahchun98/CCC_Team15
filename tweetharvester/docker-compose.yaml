@@ -11,6 +11,7 @@ services:
     environment:
       # port number that you want the flask to listen to
       STATELIST: $STATELIST
+      COUCHDB_PORT: $COUCHDB_PORT
       COUCHDB_IP: $COUCHDB_IP
       password: $COUCHDB_PASS
       username: $COUCHDB_USERNAME
