@@ -18,10 +18,10 @@ DB_NAME = os.environ['DATABASE_NAME']
 
 # Connect to CouchDB server
 couch = couchdb.Server(COUCHDB_IP + ':' + COUCHDB_PORT)
-
+print(COUCHDB_IP + ':' + COUCHDB_PORT)
 # Connect to Database
 db = couch[DB_NAME]
-
+print(DB_NAME)
 search_term = "#Covid-19 OR Covid-19 OR Covid"
 count = 100
 
