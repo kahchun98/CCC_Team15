@@ -172,7 +172,7 @@ result2 = db2.view('stateInfo/perState').rows
 data = {}
 
 for row in result1:
-    data.update({row.key:{'score': row.value}})
+    data.update({row.key.upper():{'score': row.value}})
     
 for row in result2:
     
