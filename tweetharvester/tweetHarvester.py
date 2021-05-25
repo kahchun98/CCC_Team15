@@ -87,12 +87,23 @@ def write_to_json(tweets_iterator, filename, state):
         f.write(j_str)
 
 def write_to_couchdb(tweets_iterator, state):
+    abbr = {
+    'Melbourne'  : 'vic', 
+    'Sydney'     : 'nsw', 
+    'Adelaide'   : 'sa', 
+    'Brisbane'   : 'qld',      
+    'Tasmania'   : 'tas',  
+    'Perth'      : 'wa',  
+    'Canberra'   : 'act', 
+    'Darwin'     : 'nt', 
+    }
     for tweet in tweets_iterator:
         blob = TextBlob(clean(tweet.full_text))
         polarity = blob.sentiment.polarity
-        record = {'semantic':polarity, 'state': state}
-        if tweet.id not in db:
-            db[tweet.id] = record
+        record = {'semantic':polarity, 'state': abbr[state]}
+        id = str(tweet.id)
+        if id not in db:
+            db[id] = record
 
 
 # ---------------------------------------------END METHODS--------------------------------------------------
