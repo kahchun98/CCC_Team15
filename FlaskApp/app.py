@@ -136,13 +136,13 @@ if 'act' not in db2:
 
 #design document for database 'tweets'
 #based on the assumption that each tweet is a document
-#!! need to confirm the "doc." names => doc.state, doc.semantics
+#!! need to confirm the "doc." names => doc.state, doc.semantic
 if '_design/stateInfo' not in db1:
     doc1 = {'_id': '_design/stateInfo',
         'views': {
         'perState': {
             'reduce': 'function (keys, values) {\n  \n  return sum(values)/values.length;\n  \n}',
-            'map': 'function (doc) {\n  emit(doc.state, doc.semantics);\n}'
+            'map': 'function (doc) {\n  emit(doc.state, doc.semantic);\n}'
         }
         },
         'language': 'javascript'}
